@@ -1,0 +1,6 @@
+framework module Pods_Wasfaa_WasfaaUITests {
+  umbrella header "Pods-Wasfaa-WasfaaUITests-umbrella.h"
+
+  export *
+  module * { export * }
+}

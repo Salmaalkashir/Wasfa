@@ -1,0 +1,15 @@
+# Xcode
+.DS_Store
+/build/
+/DerivedData/
+*.pbxuser
+*.mode1v3
+*.mode2v3
+*.perspectivev3
+*.xccheckout
+*.xcworkspace
+*.xcuserstate
+xcuserdata
+*.moved-aside
+*.xcuserdatad
+*.swp
