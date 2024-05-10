@@ -26,6 +26,10 @@ class RecipeDetailsViewController: UIViewController {
   @IBOutlet weak var calNumber: UILabel!
   @IBOutlet weak var ingredients: UILabel!
   @IBOutlet weak var howToMake: UILabel!
+  @IBOutlet weak var showMoreIngredients: UIButton!
+  @IBOutlet weak var ingredientsLabelHeightConstraint: NSLayoutConstraint!
+  @IBOutlet weak var showMoreHowToMake: UIButton!
+  @IBOutlet weak var howToMakeLabelHeightConstraint: NSLayoutConstraint!
   
   let recipeDetailsViewModel = RecipeDetailsViewModel()
   var randomDetails: RandomRecipe?
@@ -35,45 +39,75 @@ class RecipeDetailsViewController: UIViewController {
   override func viewDidLoad() {
     super.viewDidLoad()
     configureViews()
-    
+    showMoreIngredients.isHidden = true
+    showMoreHowToMake.isHidden = true
+    ingredientsLabelHeightConstraint.constant = 190
     recipeDetailsViewModel.recipeID = recipeDetailsID
     if fromWhere == "Random" || fromWhere == "Filtered"{
-      recipeImage.sd_setImage(with: URL(string: randomDetails?.image ?? ""))
+      recipeImage.sd_setImage(with: URL(string: randomDetails?.image ?? ""),placeholderImage: UIImage(named: "noImage"))
       recipeName.text = randomDetails?.title
       servingsNumber.text = String(randomDetails?.servings ?? 0)
       minsNumber.text = String(randomDetails?.readyInMinutes ?? 0)
       recipeDetailsViewModel.retrieveRecipeNutrients(id:randomDetails?.id ?? 0)
+      print("ID:\(randomDetails?.id ?? 0)")
       recipeDetailsViewModel.bindRecipeNutrientsToController = {
         DispatchQueue.main.async {
           self.recipeDetailsViewModel.recipeNutrientsArray = self.recipeDetailsViewModel.retrievedNutrients
           self.calNumber.text = self.recipeDetailsViewModel.recipeNutrientsArray?.calories ?? ""
         }
       }
-      
-      ingredients.text = (randomDetails?.extendedIngredients?[0].original ?? "") + "\n" + (randomDetails?.extendedIngredients?[1].original ?? "")
+      print("number:\(randomDetails?.extendedIngredients?.count ?? 0)")
+      /* var letterCount = 0
+       
+       for character in randomDetails?.extendedIngredients?[0].original ?? "" {
+       letterCount += 1
+       }
+       print("coo:\(letterCount)")
+       */
       if let ingredients =  randomDetails?.extendedIngredients {
+        var letterCount = 0
         for ingredient in ingredients {
           recipeDetailsViewModel.randomRecipeIngredients.append("• " + (ingredient.original ?? ""))
           recipeDetailsViewModel.randomRecipeIngredients.append("\n")
+          for characterr in ingredients{
+            letterCount += 1
+          }
         }
+        if letterCount >= 75 {
+          showMoreIngredients.isHidden = false
+          
+        }
+        print("cco:\(letterCount)")
       }
       ingredients.text = recipeDetailsViewModel.randomRecipeIngredients
-      ingredients.sizeToFit()
-      for step in randomDetails?.analyzedInstructions?[0].steps ?? [] {
-        recipeDetailsViewModel.randomRecipeSteps.append("• " + (step.step ?? "" ))
-        recipeDetailsViewModel.randomRecipeSteps.append("\n")
+      if randomDetails?.analyzedInstructions?[0].steps?.count == nil {
+        howToMake.text = "No steps for this recipe"
+      }else{
+        var letterCount = 0
+        for step in randomDetails?.analyzedInstructions?[0].steps ?? [] {
+          recipeDetailsViewModel.randomRecipeSteps.append("• " + (step.step ?? "" ))
+          recipeDetailsViewModel.randomRecipeSteps.append("\n")
+          for characterr in randomDetails?.analyzedInstructions?[0].steps ?? [] {
+            letterCount += 1
+          }
+        }
+        if letterCount >= 75 {
+          self.showMoreHowToMake.isHidden = false
+          
+        }
+        print("stepcoun:\(letterCount)")
       }
       howToMake.text = recipeDetailsViewModel.randomRecipeSteps
-      howToMake.sizeToFit()
+      
     }else{
       recipeDetailsViewModel.retrieveRecipeDetails(id: recipeDetailsID ?? 0)
       recipeDetailsViewModel.bindRecipeDetailsToController = {
         DispatchQueue.main.async {
           self.recipeDetailsViewModel.recipeDetailsArray = self.recipeDetailsViewModel.retrievedDetails
           self.recipeImage.sd_setImage(with: URL(string: self.recipeDetailsViewModel.recipeDetailsArray?.image ?? ""),placeholderImage: UIImage(named: "noImage"))
-            self.recipeName.text = self.recipeDetailsViewModel.recipeDetailsArray?.title
-           self.servingsNumber.text = String(self.recipeDetailsViewModel.recipeDetailsArray?.servings ?? 0)
-            self.minsNumber.text = String(self.recipeDetailsViewModel.recipeDetailsArray?.readyInMinutes ?? 0)
+          self.recipeName.text = self.recipeDetailsViewModel.recipeDetailsArray?.title
+          self.servingsNumber.text = String(self.recipeDetailsViewModel.recipeDetailsArray?.servings ?? 0)
+          self.minsNumber.text = String(self.recipeDetailsViewModel.recipeDetailsArray?.readyInMinutes ?? 0)
           self.recipeDetailsViewModel.retrieveRecipeNutrients(id: self.recipeDetailsID ?? 0)
           self.recipeDetailsViewModel.bindRecipeNutrientsToController = {
             DispatchQueue.main.async {
@@ -82,24 +116,43 @@ class RecipeDetailsViewController: UIViewController {
             }
           }
           if let ingredients =  self.recipeDetailsViewModel.recipeDetailsArray?.extendedIngredients {
+            var letterCount = 0
             for ingredient in ingredients {
               self.recipeDetailsViewModel.recipeIngredients.append("• " + (ingredient.original ?? ""))
               self.recipeDetailsViewModel.recipeIngredients.append("\n")
+              for characterr in ingredients{
+                letterCount += 1
+              }
             }
+            if letterCount >= 75 {
+              self.showMoreIngredients.isHidden = false
+              
+            }
+            print("cco:\(letterCount)")
           }
-           self.ingredients.text = self.recipeDetailsViewModel.recipeIngredients
-          self.ingredients.sizeToFit()
+          self.ingredients.text = self.recipeDetailsViewModel.recipeIngredients
+          print("steps:\(self.randomDetails?.analyzedInstructions?[0].steps?.count)")
+          if self.randomDetails?.analyzedInstructions?[0].steps?.count == nil {
+            self.howToMake.text = "No steps for this recipe"
+          }else{
+            for step in self.recipeDetailsViewModel.recipeDetailsArray?.analyzedInstructions?[0].steps ?? [] {
+              self.recipeDetailsViewModel.recipeSteps.append("• " + (step.step ?? "" ))
+              self.recipeDetailsViewModel.recipeSteps.append("\n")
+              self.howToMake.text = self.recipeDetailsViewModel.recipeSteps
+              self.howToMake.sizeToFit()
+            }
+            
+          }
           
-          for step in self.recipeDetailsViewModel.recipeDetailsArray?.analyzedInstructions?[0].steps ?? [] {
-            self.recipeDetailsViewModel.recipeSteps.append("• " + (step.step ?? "" ))
-            self.recipeDetailsViewModel.recipeSteps.append("\n")
-          }
-          self.howToMake.text = self.recipeDetailsViewModel.recipeSteps
-          self.howToMake.sizeToFit()
         }
       }
     }
   }
+  
+  override func viewWillAppear(_ animated: Bool) {
+    navigationController?.isNavigationBarHidden = true
+  }
+  
   
   func configureViews(){
     detailsView.layer.cornerRadius = 20
@@ -130,4 +183,20 @@ class RecipeDetailsViewController: UIViewController {
     ingredients.layer.cornerRadius = 20
     howToMake.layer.cornerRadius = 20
   }
+}
+
+//MARK: -IBActions
+private extension RecipeDetailsViewController {
+  @IBAction func goBack(_ sender: UIButton) {
+    self.navigationController?.popViewController(animated: true)
+  }
+  
+  @IBAction func showMore(_ sender: UIButton) {
+    let ingredients  = IngredientsViewController()
+    ingredients.id = randomDetails?.id
+    print("rid:\(randomDetails?.id)")
+    ingredients.modalPresentationStyle = .overCurrentContext
+    present(ingredients, animated: true, completion: nil)
+  }
+  
 }

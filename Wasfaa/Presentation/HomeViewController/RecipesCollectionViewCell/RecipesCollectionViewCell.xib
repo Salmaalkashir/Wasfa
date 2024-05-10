@@ -32,12 +32,12 @@
             </view>
             <viewLayoutGuide key="safeArea" id="ZTg-uK-7eu"/>
             <constraints>
-                <constraint firstAttribute="trailing" secondItem="pOW-f0-LpR" secondAttribute="trailing" constant="8" id="GqQ-Re-A46"/>
-                <constraint firstItem="pOW-f0-LpR" firstAttribute="top" secondItem="Hkm-jp-vWw" secondAttribute="bottom" constant="8" id="Ojd-Ke-lci"/>
+                <constraint firstAttribute="trailing" secondItem="pOW-f0-LpR" secondAttribute="trailing" constant="8" id="97S-B8-d2A"/>
+                <constraint firstItem="pOW-f0-LpR" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" constant="8" id="Bz0-Bp-9qr"/>
                 <constraint firstAttribute="trailing" secondItem="Hkm-jp-vWw" secondAttribute="trailing" id="SXq-mM-rRT"/>
                 <constraint firstItem="Hkm-jp-vWw" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="WtH-jo-waJ"/>
+                <constraint firstItem="pOW-f0-LpR" firstAttribute="top" secondItem="Hkm-jp-vWw" secondAttribute="bottom" constant="8" id="XO8-l3-RfS"/>
                 <constraint firstItem="Hkm-jp-vWw" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="csG-81-elm"/>
-                <constraint firstItem="pOW-f0-LpR" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" constant="8" id="lm2-cw-dNE"/>
             </constraints>
             <connections>
                 <outlet property="recipeImage" destination="Hkm-jp-vWw" id="naf-sQ-eI9"/>
