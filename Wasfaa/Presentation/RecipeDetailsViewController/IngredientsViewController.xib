@@ -10,7 +10,9 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="IngredientsViewController" customModule="Wasfaa" customModuleProvider="target">
             <connections>
+                <outlet property="moreLabel" destination="GrR-t5-G81" id="Djc-i3-HF4"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+                <outlet property="vieww" destination="nAb-zh-mM6" id="ued-lm-iE1"/>
             </connections>
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
@@ -29,10 +31,10 @@
                     </connections>
                 </button>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="nAb-zh-mM6">
-                    <rect key="frame" x="16" y="152.66666666666666" width="468" height="194.99999999999997"/>
+                    <rect key="frame" x="16" y="125" width="468" height="250"/>
                     <subviews>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Labelioyahdfjkssfdgyuajopkaskdhiusjnkal;djkohsnkma;lpofjidsnkmla,;jiosnkwiosdjhkaplefgysdhja;ldpefuidhjzxmklsdpkojhnkml;dkoji" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GrR-t5-G81">
-                            <rect key="frame" x="8" y="8" width="452" height="179"/>
+                            <rect key="frame" x="8" y="8" width="452" height="234"/>
                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                             <nil key="textColor"/>
                             <nil key="highlightedColor"/>
@@ -52,7 +54,7 @@
             <constraints>
                 <constraint firstItem="nAb-zh-mM6" firstAttribute="width" secondItem="i5M-Pr-FkT" secondAttribute="width" multiplier="0.936" id="11N-z9-vwn"/>
                 <constraint firstItem="nAb-zh-mM6" firstAttribute="centerY" secondItem="i5M-Pr-FkT" secondAttribute="centerY" id="8Zz-a8-yaJ"/>
-                <constraint firstItem="nAb-zh-mM6" firstAttribute="height" secondItem="i5M-Pr-FkT" secondAttribute="height" multiplier="0.39" id="Byi-bI-etV"/>
+                <constraint firstItem="nAb-zh-mM6" firstAttribute="height" secondItem="i5M-Pr-FkT" secondAttribute="height" multiplier="0.5" id="Byi-bI-etV"/>
                 <constraint firstItem="nAb-zh-mM6" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="JKr-Ji-CDb"/>
                 <constraint firstItem="Djf-Gd-HUU" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="Vi1-el-005"/>
                 <constraint firstItem="Djf-Gd-HUU" firstAttribute="trailing" secondItem="fnl-2z-Ty3" secondAttribute="trailing" id="fKS-IH-WH1"/>

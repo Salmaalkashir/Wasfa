@@ -33,6 +33,7 @@ class RecipeDetailsViewModel {
       switch result{
       case .success(let details):
         self.retrievedDetails = details
+        print("ahooooo:\(details)")
       case .failure(let error):
         print("Error:\(error)")
       }

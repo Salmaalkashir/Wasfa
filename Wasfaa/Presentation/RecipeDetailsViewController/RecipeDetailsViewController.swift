@@ -40,8 +40,7 @@ class RecipeDetailsViewController: UIViewController {
     super.viewDidLoad()
     configureViews()
     showMoreIngredients.isHidden = true
-    showMoreHowToMake.isHidden = true
-    ingredientsLabelHeightConstraint.constant = 190
+     showMoreHowToMake.isHidden = true
     recipeDetailsViewModel.recipeID = recipeDetailsID
     if fromWhere == "Random" || fromWhere == "Filtered"{
       recipeImage.sd_setImage(with: URL(string: randomDetails?.image ?? ""),placeholderImage: UIImage(named: "noImage"))
@@ -57,13 +56,13 @@ class RecipeDetailsViewController: UIViewController {
         }
       }
       print("number:\(randomDetails?.extendedIngredients?.count ?? 0)")
-      /* var letterCount = 0
-       
-       for character in randomDetails?.extendedIngredients?[0].original ?? "" {
-       letterCount += 1
-       }
-       print("coo:\(letterCount)")
-       */
+      var letterCount = 0
+      
+      for character in randomDetails?.extendedIngredients?[0].original ?? "" {
+        letterCount += 1
+      }
+      print("coo:\(letterCount)")
+      
       if let ingredients =  randomDetails?.extendedIngredients {
         var letterCount = 0
         for ingredient in ingredients {
@@ -91,7 +90,7 @@ class RecipeDetailsViewController: UIViewController {
             letterCount += 1
           }
         }
-        if letterCount >= 75 {
+        if letterCount >= 25 {
           self.showMoreHowToMake.isHidden = false
           
         }
@@ -139,7 +138,6 @@ class RecipeDetailsViewController: UIViewController {
               self.recipeDetailsViewModel.recipeSteps.append("• " + (step.step ?? "" ))
               self.recipeDetailsViewModel.recipeSteps.append("\n")
               self.howToMake.text = self.recipeDetailsViewModel.recipeSteps
-              self.howToMake.sizeToFit()
             }
             
           }
@@ -158,20 +156,20 @@ class RecipeDetailsViewController: UIViewController {
     detailsView.layer.cornerRadius = 20
     detailsView.layer.shadowOffset = CGSize(width: 5, height: 5)
     detailsView.layer.shadowRadius = 5
-    detailsView.layer.shadowOpacity = 0.5
+    detailsView.layer.shadowOpacity = 0.8
     detailsView.clipsToBounds = true
     detailsView.layer.maskedCorners = [.layerMaxXMinYCorner, .layerMinXMinYCorner]
     
-    contentView.layer.cornerRadius = 20
-    contentView.layer.shadowOffset = CGSize(width: 5, height: 5)
-    contentView.layer.shadowRadius = 5
-    contentView.layer.shadowOpacity = 0.5
-    contentView.clipsToBounds = true
-    contentView.layer.maskedCorners = [.layerMaxXMinYCorner, .layerMinXMinYCorner]
-    
-    scrollview.layer.cornerRadius = 20
-    scrollview.clipsToBounds = true
-    scrollview.layer.maskedCorners = [.layerMaxXMinYCorner, .layerMinXMinYCorner]
+    /* contentView.layer.cornerRadius = 20
+     contentView.layer.shadowOffset = CGSize(width: 5, height: 5)
+     contentView.layer.shadowRadius = 5
+     contentView.layer.shadowOpacity = 0.5
+     contentView.clipsToBounds = true
+     contentView.layer.maskedCorners = [.layerMaxXMinYCorner, .layerMinXMinYCorner]
+     
+     scrollview.layer.cornerRadius = 20
+     scrollview.clipsToBounds = true
+     scrollview.layer.maskedCorners = [.layerMaxXMinYCorner, .layerMinXMinYCorner]*/
     
     readyView.layer.cornerRadius = 30
     clockView.layer.cornerRadius = 25
@@ -180,8 +178,8 @@ class RecipeDetailsViewController: UIViewController {
     caloriesView.layer.cornerRadius = 30
     flameView.layer.cornerRadius = 25
     
-    ingredients.layer.cornerRadius = 20
-    howToMake.layer.cornerRadius = 20
+    /*  ingredients.layer.cornerRadius = 20
+     howToMake.layer.cornerRadius = 20*/
   }
 }
 
