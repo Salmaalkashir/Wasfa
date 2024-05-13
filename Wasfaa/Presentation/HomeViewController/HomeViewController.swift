@@ -54,7 +54,7 @@ class HomeViewController: UIViewController {
     if searchTextField.text == "" {
       filteredRecipes = []
       for recipe in homeViewModel.randomRecipesArray?.recipes ?? [] {
-        print("recipee:\(recipe)")
+     //   print("recipee:\(recipe)")
         switch type {
         case .vegetarian:
           if recipe.vegetarian == true && recipe.vegan == false && recipe.glutenFree == false && recipe.dairyFree == false && recipe.veryHealthy == false {

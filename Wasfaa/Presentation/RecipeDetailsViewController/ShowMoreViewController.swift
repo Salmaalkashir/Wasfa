@@ -7,12 +7,15 @@
 
 import UIKit
 
-class IngredientsViewController: UIViewController {
+class ShowMoreViewController: UIViewController {
   //MARK: -IBOutlets
   @IBOutlet weak var moreLabel: UILabel!
   @IBOutlet weak var vieww: UIView!
+  
   var id: Int?
+  var tag: Int?
   var viewModel = RecipeDetailsViewModel()
+  
   override func viewDidLoad() {
     super.viewDidLoad()
     vieww.layer.cornerRadius = 15
@@ -26,18 +29,25 @@ class IngredientsViewController: UIViewController {
           for ingredient in ingredients {
             self.viewModel.recipeIngredients.append("• " + (ingredient.original ?? ""))
             self.viewModel.recipeIngredients.append("\n")
-            print("rrr:\(self.viewModel.recipeIngredients)")
           }
         }
-        self.moreLabel.text = self.viewModel.recipeIngredients
+        for step in self.viewModel.recipeDetailsArray?.analyzedInstructions?[0].steps ?? [] {
+          self.viewModel.randomRecipeSteps.append("• " + (step.step ?? "" ))
+          self.viewModel.randomRecipeSteps.append("\n")
+        }
+        if self.tag == 1{
+          self.moreLabel.text = self.viewModel.recipeIngredients
+        }else{
+          self.moreLabel.text = self.viewModel.randomRecipeSteps
+        }
+        
       }
-      
     }
   }
 }
 
 //MARK: -IBActions
-private extension IngredientsViewController{
+private extension ShowMoreViewController{
   @IBAction func dismissView(_ sender: UIButton) {
     self.dismiss(animated: true)
   }

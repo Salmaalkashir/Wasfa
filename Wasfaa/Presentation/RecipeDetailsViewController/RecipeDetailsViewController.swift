@@ -27,9 +27,7 @@ class RecipeDetailsViewController: UIViewController {
   @IBOutlet weak var ingredients: UILabel!
   @IBOutlet weak var howToMake: UILabel!
   @IBOutlet weak var showMoreIngredients: UIButton!
-  @IBOutlet weak var ingredientsLabelHeightConstraint: NSLayoutConstraint!
   @IBOutlet weak var showMoreHowToMake: UIButton!
-  @IBOutlet weak var howToMakeLabelHeightConstraint: NSLayoutConstraint!
   
   let recipeDetailsViewModel = RecipeDetailsViewModel()
   var randomDetails: RandomRecipe?
@@ -40,7 +38,7 @@ class RecipeDetailsViewController: UIViewController {
     super.viewDidLoad()
     configureViews()
     showMoreIngredients.isHidden = true
-     showMoreHowToMake.isHidden = true
+    showMoreHowToMake.isHidden = true
     recipeDetailsViewModel.recipeID = recipeDetailsID
     if fromWhere == "Random" || fromWhere == "Filtered"{
       recipeImage.sd_setImage(with: URL(string: randomDetails?.image ?? ""),placeholderImage: UIImage(named: "noImage"))
@@ -55,28 +53,24 @@ class RecipeDetailsViewController: UIViewController {
           self.calNumber.text = self.recipeDetailsViewModel.recipeNutrientsArray?.calories ?? ""
         }
       }
-      print("number:\(randomDetails?.extendedIngredients?.count ?? 0)")
       var letterCount = 0
       
-      for character in randomDetails?.extendedIngredients?[0].original ?? "" {
+      for _ in randomDetails?.extendedIngredients?[0].original ?? "" {
         letterCount += 1
       }
-      print("coo:\(letterCount)")
       
       if let ingredients =  randomDetails?.extendedIngredients {
         var letterCount = 0
         for ingredient in ingredients {
           recipeDetailsViewModel.randomRecipeIngredients.append("• " + (ingredient.original ?? ""))
           recipeDetailsViewModel.randomRecipeIngredients.append("\n")
-          for characterr in ingredients{
+          for _ in ingredients{
             letterCount += 1
           }
         }
         if letterCount >= 75 {
           showMoreIngredients.isHidden = false
-          
         }
-        print("cco:\(letterCount)")
       }
       ingredients.text = recipeDetailsViewModel.randomRecipeIngredients
       if randomDetails?.analyzedInstructions?[0].steps?.count == nil {
@@ -86,15 +80,13 @@ class RecipeDetailsViewController: UIViewController {
         for step in randomDetails?.analyzedInstructions?[0].steps ?? [] {
           recipeDetailsViewModel.randomRecipeSteps.append("• " + (step.step ?? "" ))
           recipeDetailsViewModel.randomRecipeSteps.append("\n")
-          for characterr in randomDetails?.analyzedInstructions?[0].steps ?? [] {
+          for _ in randomDetails?.analyzedInstructions?[0].steps?[0].step ?? "" {
             letterCount += 1
           }
         }
-        if letterCount >= 25 {
+        if letterCount >= 505 {
           self.showMoreHowToMake.isHidden = false
-          
         }
-        print("stepcoun:\(letterCount)")
       }
       howToMake.text = recipeDetailsViewModel.randomRecipeSteps
       
@@ -119,18 +111,15 @@ class RecipeDetailsViewController: UIViewController {
             for ingredient in ingredients {
               self.recipeDetailsViewModel.recipeIngredients.append("• " + (ingredient.original ?? ""))
               self.recipeDetailsViewModel.recipeIngredients.append("\n")
-              for characterr in ingredients{
+              for _ in ingredients{
                 letterCount += 1
               }
             }
             if letterCount >= 75 {
               self.showMoreIngredients.isHidden = false
-              
             }
-            print("cco:\(letterCount)")
           }
           self.ingredients.text = self.recipeDetailsViewModel.recipeIngredients
-          print("steps:\(self.randomDetails?.analyzedInstructions?[0].steps?.count)")
           if self.randomDetails?.analyzedInstructions?[0].steps?.count == nil {
             self.howToMake.text = "No steps for this recipe"
           }else{
@@ -139,9 +128,7 @@ class RecipeDetailsViewController: UIViewController {
               self.recipeDetailsViewModel.recipeSteps.append("\n")
               self.howToMake.text = self.recipeDetailsViewModel.recipeSteps
             }
-            
           }
-          
         }
       }
     }
@@ -160,29 +147,14 @@ class RecipeDetailsViewController: UIViewController {
     detailsView.clipsToBounds = true
     detailsView.layer.maskedCorners = [.layerMaxXMinYCorner, .layerMinXMinYCorner]
     
-    /* contentView.layer.cornerRadius = 20
-     contentView.layer.shadowOffset = CGSize(width: 5, height: 5)
-     contentView.layer.shadowRadius = 5
-     contentView.layer.shadowOpacity = 0.5
-     contentView.clipsToBounds = true
-     contentView.layer.maskedCorners = [.layerMaxXMinYCorner, .layerMinXMinYCorner]
-     
-     scrollview.layer.cornerRadius = 20
-     scrollview.clipsToBounds = true
-     scrollview.layer.maskedCorners = [.layerMaxXMinYCorner, .layerMinXMinYCorner]*/
-    
     readyView.layer.cornerRadius = 30
     clockView.layer.cornerRadius = 25
     servingsView.layer.cornerRadius = 30
     personsView.layer.cornerRadius = 25
     caloriesView.layer.cornerRadius = 30
     flameView.layer.cornerRadius = 25
-    
-    /*  ingredients.layer.cornerRadius = 20
-     howToMake.layer.cornerRadius = 20*/
   }
 }
-
 //MARK: -IBActions
 private extension RecipeDetailsViewController {
   @IBAction func goBack(_ sender: UIButton) {
@@ -190,11 +162,11 @@ private extension RecipeDetailsViewController {
   }
   
   @IBAction func showMore(_ sender: UIButton) {
-    let ingredients  = IngredientsViewController()
-    ingredients.id = randomDetails?.id
-    print("rid:\(randomDetails?.id)")
-    ingredients.modalPresentationStyle = .overCurrentContext
-    present(ingredients, animated: true, completion: nil)
+    let more  = ShowMoreViewController()
+    more.id = randomDetails?.id
+    more.tag = sender.tag
+    more.modalPresentationStyle = .overCurrentContext
+    present(more, animated: true, completion: nil)
   }
   
 }
