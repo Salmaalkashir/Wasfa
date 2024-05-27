@@ -17,10 +17,7 @@ class HomeViewController: UIViewController {
   
   let homeViewModel = HomeViewModel()
   let recipevm = RecipeDetailsViewModel()
-  var backButton = UIBarButtonItem()
-  var filteredRecipes: [RandomRecipe]?
-  var filteredRecipeee: RecipeDetails?
-  var typee: String = ""
+  
   
   override func viewDidLoad() {
     super.viewDidLoad()
@@ -49,58 +46,31 @@ class HomeViewController: UIViewController {
     recipesCollectionView.register(nib, forCellWithReuseIdentifier: "recipesCell")
     recipesCollectionView.layer.cornerRadius = 20
   }
-  
-  func recipesFilter(type: filterType) {
-    if searchTextField.text == "" {
-      filteredRecipes = []
-      for recipe in homeViewModel.randomRecipesArray?.recipes ?? [] {
-     //   print("recipee:\(recipe)")
-        switch type {
-        case .vegetarian:
-          if recipe.vegetarian == true && recipe.vegan == false && recipe.glutenFree == false && recipe.dairyFree == false && recipe.veryHealthy == false {
-            filteredRecipes?.append(recipe)
-            typee = "Vegetarian"
-          }
-        case .vegan:
-          if recipe.vegan == true && recipe.vegetarian == false && recipe.glutenFree == false && recipe.dairyFree == false && recipe.veryHealthy == false {
-            filteredRecipes?.append(recipe)
-            typee = "Vegan"
-          }
-        case .glutenFree:
-          if recipe.glutenFree == true && recipe.vegetarian == false && recipe.vegan == false && recipe.dairyFree == false && recipe.veryHealthy == false {
-            filteredRecipes?.append(recipe)
-            typee = "Gluten"
-          }
-        case .dairyFree:
-          if recipe.dairyFree == true && recipe.vegetarian == false && recipe.vegan == false && recipe.glutenFree == false && recipe.veryHealthy == false {
-            filteredRecipes?.append(recipe)
-            typee = "Dairy"
-          }
-        case .veryHealthy:
-          if recipe.veryHealthy == true && recipe.vegetarian == false && recipe.vegan == false && recipe.glutenFree == false && recipe.dairyFree == false {
-            filteredRecipes?.append(recipe)
-            typee = "Healthy"
-          }
-        }
-      }
-      recipesCollectionView.reloadData()
-    }
-  }
-  
   func filteer(){
     _ = {(action : UIAction) in
     }
     self.filterButton.menu = UIMenu(title : "" ,children: [
       UIAction(title: "Vegetarian",subtitle: "", handler: { (_) in
-        self.recipesFilter(type: .vegetarian)}),
-      UIAction(title: "Vegan",subtitle: "", handler: { (_) in
-        self.recipesFilter(type: .vegan)}),
+        self.homeViewModel.recipesFilter(type: .vegetarian, flag: self.searchTextField.text == "") { [weak self] in self?.recipesCollectionView.reloadData()
+        }}),
+      UIAction(title: "Vegan",subtitle: "", handler: { _ in
+        self.homeViewModel.recipesFilter(type: .vegan, flag: self.searchTextField.text == "") {
+          [weak self] in self?.recipesCollectionView.reloadData()
+        }}),
       UIAction(title: "Gluten Free",subtitle: "", handler: { (_) in
-        self.recipesFilter(type: .glutenFree)}),
-      UIAction(title: "Dairy Free",subtitle: "", handler: { (_) in
-        self.recipesFilter(type: .dairyFree)}),
+        self.homeViewModel.recipesFilter(type: .glutenFree, flag: self.searchTextField.text == "") {
+          [weak self] in self?.recipesCollectionView.reloadData()
+        }}),
+      UIAction(title: "Dairy Free",
+               subtitle: "",
+               handler: { (_) in
+                 self.homeViewModel.recipesFilter(type: .dairyFree, flag: self.searchTextField.text == "") { [weak self] in
+           self?.recipesCollectionView.reloadData()
+        }}),
       UIAction(title: "Healthy",subtitle: "", handler: { (_) in
-        self.recipesFilter(type: .veryHealthy)})
+        self.homeViewModel.recipesFilter(type: .veryHealthy, flag: self.searchTextField.text == "") {
+          [weak self] in self?.recipesCollectionView.reloadData()
+        }})
     ])
     filterButton.showsMenuAsPrimaryAction = true
   }
@@ -108,9 +78,9 @@ class HomeViewController: UIViewController {
 //MARK: -UICollectionViewDelegate,UICollectionViewDataSource
 extension HomeViewController: UICollectionViewDelegate,UICollectionViewDataSource {
   func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-    if searchTextField.text == "" && (typee == "Vegetarian" || typee == "Vegan" || typee == "Gluten" || typee == "Dairy" || typee == "Healthy"){
-      print("count:\(filteredRecipes?.count ?? 0)")
-      return filteredRecipes?.count ?? 0
+    if searchTextField.text == "" && (homeViewModel.typee == "Vegetarian" || homeViewModel.typee == "Vegan" || homeViewModel.typee == "Gluten" || homeViewModel.typee == "Dairy" || homeViewModel.typee == "Healthy"){
+      print("count:\(homeViewModel.filteredRecipes?.count ?? 0)")
+      return homeViewModel.filteredRecipes?.count ?? 0
       
     }else if searchTextField.text == "" {
       return homeViewModel.randomRecipeCount()
@@ -122,8 +92,8 @@ extension HomeViewController: UICollectionViewDelegate,UICollectionViewDataSourc
   
   func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
     let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "recipesCell", for: indexPath) as! RecipesCollectionViewCell
-    if searchTextField.text == "" && (typee == "Vegetarian" || typee == "Vegan" || typee == "Gluten" || typee == "Dairy" || typee == "Healthy"){
-      cell.configureCell(image: filteredRecipes?[indexPath.row].image ?? "", name: filteredRecipes?[indexPath.row].title ?? "")
+    if searchTextField.text == "" && (homeViewModel.typee == "Vegetarian" || homeViewModel.typee == "Vegan" || homeViewModel.typee == "Gluten" || homeViewModel.typee == "Dairy" || homeViewModel.typee == "Healthy"){
+      cell.configureCell(image: homeViewModel.filteredRecipes?[indexPath.row].image ?? "", name: homeViewModel.filteredRecipes?[indexPath.row].title ?? "")
       return cell
     }else if searchTextField.text == "" {
       cell.configureCell(image: homeViewModel.randomRecipesArray?.recipes?[indexPath.row].image ?? "", name: homeViewModel.randomRecipesArray?.recipes?[indexPath.row].title ?? "")
@@ -136,9 +106,9 @@ extension HomeViewController: UICollectionViewDelegate,UICollectionViewDataSourc
   
   func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
     let recipeDetailsObj = RecipeDetailsViewController()
-    if searchTextField.text == "" && (typee == "Vegetarian" || typee == "Vegan" || typee == "Gluten" || typee == "Dairy" || typee == "Healthy"){
+    if searchTextField.text == "" && (homeViewModel.typee == "Vegetarian" || homeViewModel.typee == "Vegan" || homeViewModel.typee == "Gluten" || homeViewModel.typee == "Dairy" || homeViewModel.typee == "Healthy"){
       recipeDetailsObj.fromWhere = "Filtered"
-      recipeDetailsObj.randomDetails = filteredRecipes?[indexPath.row]
+      recipeDetailsObj.randomDetails = homeViewModel.filteredRecipes?[indexPath.row]
       self.navigationController?.pushViewController(recipeDetailsObj, animated: true)
     }else  if searchTextField.text == ""{
       recipeDetailsObj.randomDetails = homeViewModel.randomRecipesArray?.recipes?[indexPath.row]

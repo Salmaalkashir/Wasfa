@@ -11,6 +11,8 @@ class HomeViewModel {
   var randomRecipesArray: RandomRecipes?
   var intoleranceArray: Recipes?
   let homeRepo = HomeRepository()
+  var filteredRecipes: [RandomRecipe]?
+  var typee: String = ""
   
   func recipeCount()-> Int {
     recipesArray?.results.count ?? 0
@@ -77,6 +79,42 @@ class HomeViewModel {
         print("Error:\(error)")
       }
     }
+  }
+  
+  func recipesFilter(type: filterType, flag: Bool, completion: ()-> Void) {
+    // if searchTextField.text == "" {
+    filteredRecipes = []
+    for recipe in randomRecipesArray?.recipes ?? [] {
+      //   print("recipee:\(recipe)")
+      switch type {
+      case .vegetarian:
+        if recipe.vegetarian == true && recipe.vegan == false && recipe.glutenFree == false && recipe.dairyFree == false && recipe.veryHealthy == false {
+          filteredRecipes?.append(recipe)
+          typee = "Vegetarian"
+        }
+      case .vegan:
+        if recipe.vegan == true && recipe.vegetarian == false && recipe.glutenFree == false && recipe.dairyFree == false && recipe.veryHealthy == false {
+          filteredRecipes?.append(recipe)
+          typee = "Vegan"
+        }
+      case .glutenFree:
+        if recipe.glutenFree == true && recipe.vegetarian == false && recipe.vegan == false && recipe.dairyFree == false && recipe.veryHealthy == false {
+          filteredRecipes?.append(recipe)
+          typee = "Gluten"
+        }
+      case .dairyFree:
+        if recipe.dairyFree == true && recipe.vegetarian == false && recipe.vegan == false && recipe.glutenFree == false && recipe.veryHealthy == false {
+          filteredRecipes?.append(recipe)
+          typee = "Dairy"
+        }
+      case .veryHealthy:
+        if recipe.veryHealthy == true && recipe.vegetarian == false && recipe.vegan == false && recipe.glutenFree == false && recipe.dairyFree == false {
+          filteredRecipes?.append(recipe)
+          typee = "Healthy"
+        }
+      }
+    }
+    completion()
   }
 }
 enum filterType: String{

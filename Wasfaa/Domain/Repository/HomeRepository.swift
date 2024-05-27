@@ -16,7 +16,6 @@ protocol HomeRepositoryProtocol {
 //MARK: - HomeRepository
 class HomeRepository: HomeRepositoryProtocol {
   let networkService: NetworkServiceProtocol = NetworkService()
-  
   func getRandomRecipes(completion: @escaping (Result<RandomRecipes, NetworkError>) -> Void) {
     networkService.getData(endpoint: .randomRecipes,completion: completion)
   }
