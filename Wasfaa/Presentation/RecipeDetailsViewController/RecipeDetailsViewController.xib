@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="21701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="32700.99.1234" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_12" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21678"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22685"/>
         <capability name="Image references" minToolsVersion="12.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
@@ -154,7 +155,7 @@
                                                     <rect key="frame" x="5" y="8" width="50" height="50"/>
                                                     <subviews>
                                                         <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="2Ux-RJ-4R4">
-                                                            <rect key="frame" x="7" y="13.333333333333348" width="36" height="24"/>
+                                                            <rect key="frame" x="7.3333333333333428" y="13.33333333333335" width="35" height="25"/>
                                                             <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                             <imageReference key="image" image="person.2" catalog="system" symbolScale="large"/>
                                                             <preferredSymbolConfiguration key="preferredSymbolConfiguration" scale="large"/>
@@ -200,7 +201,7 @@
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumFontSize="15" translatesAutoresizingMaskIntoConstraints="NO" id="Xbx-0J-9ha">
-                                            <rect key="frame" x="8" y="209.33333333333337" width="377" height="90"/>
+                                            <rect key="frame" x="16" y="209.33333333333337" width="369" height="90"/>
                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="90" id="ZyT-p8-jlf"/>
@@ -230,7 +231,7 @@
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumFontSize="15" translatesAutoresizingMaskIntoConstraints="NO" id="8sX-HM-Upn">
-                                            <rect key="frame" x="8" y="346.33333333333337" width="377" height="240"/>
+                                            <rect key="frame" x="16" y="346.33333333333337" width="369" height="240"/>
                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="240" id="cEx-6j-Q9V"/>
@@ -264,7 +265,7 @@
                                         <constraint firstItem="fln-1w-G8Y" firstAttribute="top" secondItem="z8E-gF-MBO" secondAttribute="bottom" constant="8" id="Q1K-cZ-uUS"/>
                                         <constraint firstAttribute="trailing" secondItem="Xbx-0J-9ha" secondAttribute="trailing" constant="8" id="Ssg-Jr-F4m"/>
                                         <constraint firstAttribute="trailing" secondItem="4fB-cy-lXv" secondAttribute="trailing" constant="8" id="UeY-VY-dcs"/>
-                                        <constraint firstItem="Xbx-0J-9ha" firstAttribute="leading" secondItem="qNY-6Q-np6" secondAttribute="leading" constant="8" id="WM8-ol-4T1"/>
+                                        <constraint firstItem="Xbx-0J-9ha" firstAttribute="leading" secondItem="qNY-6Q-np6" secondAttribute="leading" constant="16" id="WM8-ol-4T1"/>
                                         <constraint firstAttribute="trailing" secondItem="8sX-HM-Upn" secondAttribute="trailing" constant="8" id="Z72-Iz-l2B"/>
                                         <constraint firstAttribute="height" constant="631" id="afF-kd-RI7"/>
                                         <constraint firstItem="fln-1w-G8Y" firstAttribute="centerX" secondItem="qNY-6Q-np6" secondAttribute="centerX" id="bhM-l3-43r"/>
@@ -278,7 +279,7 @@
                                         <constraint firstItem="8sX-HM-Upn" firstAttribute="top" secondItem="pEW-V8-UeK" secondAttribute="bottom" constant="8" id="ul0-yx-4OR"/>
                                         <constraint firstItem="phV-lZ-nWr" firstAttribute="leading" secondItem="qNY-6Q-np6" secondAttribute="leading" constant="64" id="v3T-yX-LjE"/>
                                         <constraint firstItem="pEW-V8-UeK" firstAttribute="leading" secondItem="qNY-6Q-np6" secondAttribute="leading" constant="16" id="vTp-dW-dKP"/>
-                                        <constraint firstItem="8sX-HM-Upn" firstAttribute="leading" secondItem="qNY-6Q-np6" secondAttribute="leading" constant="8" id="woY-IT-hSh"/>
+                                        <constraint firstItem="8sX-HM-Upn" firstAttribute="leading" secondItem="qNY-6Q-np6" secondAttribute="leading" constant="16" id="woY-IT-hSh"/>
                                         <constraint firstItem="uPB-bU-Epy" firstAttribute="leading" secondItem="qNY-6Q-np6" secondAttribute="leading" constant="16" id="zL1-7L-3Qt"/>
                                     </constraints>
                                 </view>
@@ -310,7 +311,8 @@
                         <constraint firstAttribute="height" constant="35" id="nXw-65-BX9"/>
                     </constraints>
                     <state key="normal" title="Button"/>
-                    <buttonConfiguration key="configuration" style="gray" image="lessthan" catalog="system" cornerStyle="capsule">
+                    <buttonConfiguration key="configuration" style="gray" cornerStyle="capsule">
+                        <imageReference key="image" image="arrowshape.backward.fill" catalog="system" symbolScale="medium"/>
                         <color key="baseForegroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <color key="baseBackgroundColor" red="0.32916301489999999" green="0.08048488945" blue="0.16336655620000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </buttonConfiguration>
@@ -338,13 +340,13 @@
         </view>
     </objects>
     <resources>
+        <image name="arrowshape.backward.fill" catalog="system" width="128" height="104"/>
         <image name="arrowshape.right" catalog="system" width="128" height="104"/>
         <image name="clock" catalog="system" width="128" height="123"/>
         <image name="flame" catalog="system" width="106" height="128"/>
-        <image name="lessthan" catalog="system" width="128" height="108"/>
-        <image name="person.2" catalog="system" width="128" height="82"/>
+        <image name="person.2" catalog="system" width="128" height="87"/>
         <systemColor name="labelColor">
-            <color red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>

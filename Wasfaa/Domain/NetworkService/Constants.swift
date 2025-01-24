@@ -13,7 +13,7 @@ enum NetworkError: Error {
   case invalidResponse
   case decodingFailed(Error)
 }
-let apiKey = "ae24e6a19ee94737a799173d00dd0d96"
+let apiKey = "db49041c5e8140b9b729e4889d0d21ad"
 //MARK: -EndPoints
 enum EndPoints {
   case ingredientSearch(ingredient: String)

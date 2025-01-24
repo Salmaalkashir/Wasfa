@@ -46,7 +46,6 @@ class RecipeDetailsViewController: UIViewController {
       servingsNumber.text = String(randomDetails?.servings ?? 0)
       minsNumber.text = String(randomDetails?.readyInMinutes ?? 0)
       recipeDetailsViewModel.retrieveRecipeNutrients(id:randomDetails?.id ?? 0)
-      print("ID:\(randomDetails?.id ?? 0)")
       recipeDetailsViewModel.bindRecipeNutrientsToController = {
         DispatchQueue.main.async {
           self.recipeDetailsViewModel.recipeNutrientsArray = self.recipeDetailsViewModel.retrievedNutrients
@@ -163,7 +162,11 @@ private extension RecipeDetailsViewController {
   
   @IBAction func showMore(_ sender: UIButton) {
     let more  = ShowMoreViewController()
-    more.id = randomDetails?.id
+    if fromWhere == "Random" || fromWhere == "Filtered"{
+      more.id = randomDetails?.id
+    }else{
+      more.id = recipeDetailsID
+    }
     more.tag = sender.tag
     more.modalPresentationStyle = .overCurrentContext
     present(more, animated: true, completion: nil)

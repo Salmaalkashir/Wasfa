@@ -79,7 +79,6 @@ class HomeViewController: UIViewController {
 extension HomeViewController: UICollectionViewDelegate,UICollectionViewDataSource {
   func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
     if searchTextField.text == "" && (homeViewModel.typee == "Vegetarian" || homeViewModel.typee == "Vegan" || homeViewModel.typee == "Gluten" || homeViewModel.typee == "Dairy" || homeViewModel.typee == "Healthy"){
-      print("count:\(homeViewModel.filteredRecipes?.count ?? 0)")
       return homeViewModel.filteredRecipes?.count ?? 0
       
     }else if searchTextField.text == "" {
@@ -116,7 +115,6 @@ extension HomeViewController: UICollectionViewDelegate,UICollectionViewDataSourc
       self.navigationController?.pushViewController(recipeDetailsObj, animated: true)
     }else{
       recipeDetailsObj.recipeDetailsID = homeViewModel.recipesArray?.results[indexPath.row].id
-      print("dd:\(homeViewModel.recipesArray?.results[indexPath.row].id ?? 0)")
       self.navigationController?.pushViewController(recipeDetailsObj, animated: true)
     }
   }
