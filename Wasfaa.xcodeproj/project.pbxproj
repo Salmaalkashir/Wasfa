@@ -30,8 +30,6 @@
 		387EE3DB2BDDA824000990AD /* RecipeDetailsRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 387EE3DA2BDDA824000990AD /* RecipeDetailsRepository.swift */; };
 		387EE3DE2BDDABDA000990AD /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 387EE3DD2BDDABDA000990AD /* HomeViewModel.swift */; };
 		387EE3E12BDDB00E000990AD /* RecipeDetailsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 387EE3E02BDDB00E000990AD /* RecipeDetailsViewModel.swift */; };
-		388D888E2BED72AD00340CC9 /* ShowMoreViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 388D888C2BED72AD00340CC9 /* ShowMoreViewController.swift */; };
-		388D888F2BED72AD00340CC9 /* ShowMoreViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 388D888D2BED72AD00340CC9 /* ShowMoreViewController.xib */; };
 		38B0295C2BF03ECA00A80513 /* RecipeDetailsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 38B0295A2BF03ECA00A80513 /* RecipeDetailsViewController.xib */; };
 		8AD4623677318FA964A47554 /* Pods_Wasfaa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 78BCF6AAF6E818703030E6E6 /* Pods_Wasfaa.framework */; };
 		C0567A465A0A3700A1F2A249 /* Pods_Wasfaa_WasfaaUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 43A32BD1AF88EF57319D762A /* Pods_Wasfaa_WasfaaUITests.framework */; };
@@ -82,8 +80,6 @@
 		387EE3DA2BDDA824000990AD /* RecipeDetailsRepository.swift */ = {isa = PBXFileReference; indentWidth = 2; lastKnownFileType = sourcecode.swift; path = RecipeDetailsRepository.swift; sourceTree = "<group>"; tabWidth = 2; };
 		387EE3DD2BDDABDA000990AD /* HomeViewModel.swift */ = {isa = PBXFileReference; indentWidth = 2; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; tabWidth = 2; };
 		387EE3E02BDDB00E000990AD /* RecipeDetailsViewModel.swift */ = {isa = PBXFileReference; indentWidth = 2; lastKnownFileType = sourcecode.swift; path = RecipeDetailsViewModel.swift; sourceTree = "<group>"; tabWidth = 2; };
-		388D888C2BED72AD00340CC9 /* ShowMoreViewController.swift */ = {isa = PBXFileReference; indentWidth = 2; lastKnownFileType = sourcecode.swift; path = ShowMoreViewController.swift; sourceTree = "<group>"; tabWidth = 2; };
-		388D888D2BED72AD00340CC9 /* ShowMoreViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ShowMoreViewController.xib; sourceTree = "<group>"; };
 		38B0295A2BF03ECA00A80513 /* RecipeDetailsViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RecipeDetailsViewController.xib; sourceTree = "<group>"; };
 		43A32BD1AF88EF57319D762A /* Pods_Wasfaa_WasfaaUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Wasfaa_WasfaaUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		657C4F4DA2CD5CE61F6AED6D /* Pods-Wasfaa-WasfaaUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Wasfaa-WasfaaUITests.release.xcconfig"; path = "Target Support Files/Pods-Wasfaa-WasfaaUITests/Pods-Wasfaa-WasfaaUITests.release.xcconfig"; sourceTree = "<group>"; };
@@ -248,8 +244,6 @@
 				387EE3DF2BDDAFEC000990AD /* RecipeDetailsViewModel */,
 				387EE3C62BDDA74A000990AD /* RecipeDetailsViewController.swift */,
 				38B0295A2BF03ECA00A80513 /* RecipeDetailsViewController.xib */,
-				388D888C2BED72AD00340CC9 /* ShowMoreViewController.swift */,
-				388D888D2BED72AD00340CC9 /* ShowMoreViewController.xib */,
 			);
 			path = RecipeDetailsViewController;
 			sourceTree = "<group>";
@@ -432,7 +426,6 @@
 				387EE3C32BDDA6C9000990AD /* RecipesCollectionViewCell.xib in Resources */,
 				387EE3922BDDA251000990AD /* LaunchScreen.storyboard in Resources */,
 				387EE38F2BDDA251000990AD /* Assets.xcassets in Resources */,
-				388D888F2BED72AD00340CC9 /* ShowMoreViewController.xib in Resources */,
 				387EE3BA2BDDA51A000990AD /* HomeViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -566,7 +559,6 @@
 				387EE3DB2BDDA824000990AD /* RecipeDetailsRepository.swift in Sources */,
 				387EE3CF2BDDA7A0000990AD /* RandomRecipesModel.swift in Sources */,
 				387EE3D92BDDA80D000990AD /* HomeRepository.swift in Sources */,
-				388D888E2BED72AD00340CC9 /* ShowMoreViewController.swift in Sources */,
 				387EE3E12BDDB00E000990AD /* RecipeDetailsViewModel.swift in Sources */,
 				38792F142BDDB9AC00598989 /* RecipeDetailsModel.swift in Sources */,
 				387EE3CD2BDDA78D000990AD /* RecipeModel.swift in Sources */,

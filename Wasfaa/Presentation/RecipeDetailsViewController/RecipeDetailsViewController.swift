@@ -24,22 +24,19 @@ class RecipeDetailsViewController: UIViewController {
   @IBOutlet weak var caloriesView: UIView!
   @IBOutlet weak var flameView: UIView!
   @IBOutlet weak var calNumber: UILabel!
-  @IBOutlet weak var ingredients: UILabel!
-  @IBOutlet weak var howToMake: UILabel!
-  @IBOutlet weak var showMoreIngredients: UIButton!
-  @IBOutlet weak var showMoreHowToMake: UIButton!
+  @IBOutlet weak var ingredientss: UITextView!
+  @IBOutlet weak var howToMake: UITextView!
+  @IBOutlet weak var ingredientsStepsSegmentControl: UISegmentedControl!
   
   let recipeDetailsViewModel = RecipeDetailsViewModel()
   var randomDetails: RandomRecipe?
-  var recipeDetailsID: Int?
+  var recipeDetailsID: Recipe?
   var fromWhere: String?
   
   override func viewDidLoad() {
     super.viewDidLoad()
     configureViews()
-    showMoreIngredients.isHidden = true
-    showMoreHowToMake.isHidden = true
-    recipeDetailsViewModel.recipeID = recipeDetailsID
+    recipeDetailsViewModel.recipeID = recipeDetailsID?.id
     if fromWhere == "Random" || fromWhere == "Filtered"{
       recipeImage.sd_setImage(with: URL(string: randomDetails?.image ?? ""),placeholderImage: UIImage(named: "noImage"))
       recipeName.text = randomDetails?.title
@@ -52,45 +49,64 @@ class RecipeDetailsViewController: UIViewController {
           self.calNumber.text = self.recipeDetailsViewModel.recipeNutrientsArray?.calories ?? ""
         }
       }
-      var letterCount = 0
-      
-      for _ in randomDetails?.extendedIngredients?[0].original ?? "" {
-        letterCount += 1
-      }
-      
-      if let ingredients =  randomDetails?.extendedIngredients {
-        var letterCount = 0
+      if let ingredients = randomDetails?.extendedIngredients {
+        let attributedText = NSMutableAttributedString()
+        
+        let font = UIFont.systemFont(ofSize: 14)
+        
         for ingredient in ingredients {
-          recipeDetailsViewModel.randomRecipeIngredients.append("• " + (ingredient.original ?? ""))
-          recipeDetailsViewModel.randomRecipeIngredients.append("\n")
-          for _ in ingredients{
-            letterCount += 1
-          }
+          let redDot = NSAttributedString(
+            string: "●   ",
+            attributes: [
+              NSAttributedString.Key.foregroundColor: UIColor(named: "mainColor"),
+              NSAttributedString.Key.font: font
+            ]
+          )
+          attributedText.append(redDot)
+          let ingredientText = NSAttributedString(
+            string: (ingredient.original ?? "") + "\n",
+            attributes: [
+              NSAttributedString.Key.foregroundColor: UIColor.black,
+              NSAttributedString.Key.font: font
+            ]
+          )
+          let newline = NSAttributedString(string: "\n")
+          
+          attributedText.append(ingredientText)
+          attributedText.append(newline)
         }
-        if letterCount >= 75 {
-          showMoreIngredients.isHidden = false
-        }
+        ingredientss.attributedText = attributedText
       }
-      ingredients.text = recipeDetailsViewModel.randomRecipeIngredients
-      if randomDetails?.analyzedInstructions?[0].steps?.count == nil {
-        howToMake.text = "No steps for this recipe"
-      }else{
-        var letterCount = 0
-        for step in randomDetails?.analyzedInstructions?[0].steps ?? [] {
-          recipeDetailsViewModel.randomRecipeSteps.append("• " + (step.step ?? "" ))
-          recipeDetailsViewModel.randomRecipeSteps.append("\n")
-          for _ in randomDetails?.analyzedInstructions?[0].steps?[0].step ?? "" {
-            letterCount += 1
-          }
-        }
-        if letterCount >= 505 {
-          self.showMoreHowToMake.isHidden = false
-        }
+
+
+      let attributedText = NSMutableAttributedString()
+      let font = UIFont.systemFont(ofSize: 14)
+
+      for step in randomDetails?.analyzedInstructions?[0].steps ?? [] {
+          let redDot = NSAttributedString(
+              string: "●   ",
+              attributes: [
+                  NSAttributedString.Key.foregroundColor: UIColor(named: "mainColor"),
+                  NSAttributedString.Key.font: font
+              ]
+          )
+          attributedText.append(redDot)
+          let stepText = NSAttributedString(
+              string: (step.step ?? ""),
+              attributes: [
+                  NSAttributedString.Key.foregroundColor: UIColor.black,
+                  NSAttributedString.Key.font: font
+              ]
+          )
+          attributedText.append(stepText)
+          let newline = NSAttributedString(string: "\n")
+          attributedText.append(newline)
+        attributedText.append(newline)
       }
-      howToMake.text = recipeDetailsViewModel.randomRecipeSteps
-      
+      howToMake.attributedText = attributedText
+
     }else{
-      recipeDetailsViewModel.retrieveRecipeDetails(id: recipeDetailsID ?? 0)
+      recipeDetailsViewModel.retrieveRecipeDetails(id: recipeDetailsID?.id ?? 0)
       recipeDetailsViewModel.bindRecipeDetailsToController = {
         DispatchQueue.main.async {
           self.recipeDetailsViewModel.recipeDetailsArray = self.recipeDetailsViewModel.retrievedDetails
@@ -98,36 +114,65 @@ class RecipeDetailsViewController: UIViewController {
           self.recipeName.text = self.recipeDetailsViewModel.recipeDetailsArray?.title
           self.servingsNumber.text = String(self.recipeDetailsViewModel.recipeDetailsArray?.servings ?? 0)
           self.minsNumber.text = String(self.recipeDetailsViewModel.recipeDetailsArray?.readyInMinutes ?? 0)
-          self.recipeDetailsViewModel.retrieveRecipeNutrients(id: self.recipeDetailsID ?? 0)
+          self.recipeDetailsViewModel.retrieveRecipeNutrients(id: self.recipeDetailsID?.id ?? 0)
           self.recipeDetailsViewModel.bindRecipeNutrientsToController = {
             DispatchQueue.main.async {
               self.recipeDetailsViewModel.recipeNutrientsArray = self.recipeDetailsViewModel.retrievedNutrients
               self.calNumber.text = self.recipeDetailsViewModel.recipeNutrientsArray?.calories ?? ""
             }
           }
-          if let ingredients =  self.recipeDetailsViewModel.recipeDetailsArray?.extendedIngredients {
-            var letterCount = 0
+          let ingredientsAttributedText = NSMutableAttributedString()
+          let stepsAttributedText = NSMutableAttributedString()
+          let font = UIFont.systemFont(ofSize: 14)
+          
+          if let ingredients = self.recipeDetailsViewModel.recipeDetailsArray?.extendedIngredients {
             for ingredient in ingredients {
-              self.recipeDetailsViewModel.recipeIngredients.append("• " + (ingredient.original ?? ""))
-              self.recipeDetailsViewModel.recipeIngredients.append("\n")
-              for _ in ingredients{
-                letterCount += 1
-              }
-            }
-            if letterCount >= 75 {
-              self.showMoreIngredients.isHidden = false
+              let redDot = NSAttributedString(
+                string: "●   ",
+                attributes: [
+                  NSAttributedString.Key.foregroundColor: UIColor(named: "mainColor"),
+                  NSAttributedString.Key.font: font
+                ]
+              )
+              ingredientsAttributedText.append(redDot)
+              let ingredientText = NSAttributedString(
+                string: (ingredient.original ?? ""),
+                attributes: [
+                  NSAttributedString.Key.foregroundColor: UIColor.black,
+                  NSAttributedString.Key.font: font
+                ]
+              )
+              ingredientsAttributedText.append(ingredientText)
+              let newline = NSAttributedString(string: "\n")
+              ingredientsAttributedText.append(newline)
             }
           }
-          self.ingredients.text = self.recipeDetailsViewModel.recipeIngredients
-          if self.randomDetails?.analyzedInstructions?[0].steps?.count == nil {
-            self.howToMake.text = "No steps for this recipe"
-          }else{
-            for step in self.recipeDetailsViewModel.recipeDetailsArray?.analyzedInstructions?[0].steps ?? [] {
-              self.recipeDetailsViewModel.recipeSteps.append("• " + (step.step ?? "" ))
-              self.recipeDetailsViewModel.recipeSteps.append("\n")
-              self.howToMake.text = self.recipeDetailsViewModel.recipeSteps
+          self.ingredientss.attributedText = ingredientsAttributedText
+          
+          if let steps = self.recipeDetailsViewModel.recipeDetailsArray?.analyzedInstructions?[0].steps {
+            for step in steps {
+              let redDot = NSAttributedString(
+                string: "●   ",
+                attributes: [
+                  NSAttributedString.Key.foregroundColor: UIColor(named: "mainColor"),
+                  NSAttributedString.Key.font: font
+                ]
+              )
+              stepsAttributedText.append(redDot)
+              let stepText = NSAttributedString(
+                string: (step.step ?? ""),
+                attributes: [
+                  NSAttributedString.Key.foregroundColor: UIColor.black,
+                  NSAttributedString.Key.font: font
+                ]
+              )
+              stepsAttributedText.append(stepText)
+              let newline = NSAttributedString(string: "\n")
+              stepsAttributedText.append(newline)
+              stepsAttributedText.append(newline)
             }
           }
+          self.howToMake.attributedText = stepsAttributedText
         }
       }
     }
@@ -139,6 +184,7 @@ class RecipeDetailsViewController: UIViewController {
   
   
   func configureViews(){
+    howToMake.isHidden = true
     detailsView.layer.cornerRadius = 20
     detailsView.layer.shadowOffset = CGSize(width: 5, height: 5)
     detailsView.layer.shadowRadius = 5
@@ -152,6 +198,9 @@ class RecipeDetailsViewController: UIViewController {
     personsView.layer.cornerRadius = 25
     caloriesView.layer.cornerRadius = 30
     flameView.layer.cornerRadius = 25
+    
+    ingredientsStepsSegmentControl.setTitleTextAttributes([.foregroundColor: UIColor.black], for: .normal)
+    ingredientsStepsSegmentControl.setTitleTextAttributes([.foregroundColor: UIColor.white], for: .selected)
   }
 }
 //MARK: -IBActions
@@ -160,16 +209,16 @@ private extension RecipeDetailsViewController {
     self.navigationController?.popViewController(animated: true)
   }
   
-  @IBAction func showMore(_ sender: UIButton) {
-    let more  = ShowMoreViewController()
-    if fromWhere == "Random" || fromWhere == "Filtered"{
-      more.id = randomDetails?.id
-    }else{
-      more.id = recipeDetailsID
+  @IBAction func segmentControlValueChanged(_ sender: UISegmentedControl) {
+    switch ingredientsStepsSegmentControl.selectedSegmentIndex {
+    case 0:
+      howToMake.isHidden = true
+      ingredientss.isHidden = false
+    case 1:
+      howToMake.isHidden = false
+      ingredientss.isHidden = true
+    default:
+      break
     }
-    more.tag = sender.tag
-    more.modalPresentationStyle = .overCurrentContext
-    present(more, animated: true, completion: nil)
   }
-  
 }

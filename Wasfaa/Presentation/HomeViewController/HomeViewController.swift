@@ -112,9 +112,12 @@ extension HomeViewController: UICollectionViewDelegate,UICollectionViewDataSourc
     }else  if searchTextField.text == ""{
       recipeDetailsObj.randomDetails = homeViewModel.randomRecipesArray?.recipes?[indexPath.row]
       recipeDetailsObj.fromWhere = "Random"
+      print("NAME:\(homeViewModel.randomRecipesArray?.recipes?[indexPath.row].title)")
+      print("STEPS:\(homeViewModel.randomRecipesArray?.recipes?[indexPath.row].analyzedInstructions)")
       self.navigationController?.pushViewController(recipeDetailsObj, animated: true)
     }else{
-      recipeDetailsObj.recipeDetailsID = homeViewModel.recipesArray?.results[indexPath.row].id
+      recipeDetailsObj.recipeDetailsID = homeViewModel.recipesArray?.results[indexPath.row]
+     // print("STEPS:\(homeViewModel.recipesArray?.results[indexPath.row])")
       self.navigationController?.pushViewController(recipeDetailsObj, animated: true)
     }
   }
